@@ -4,6 +4,7 @@
 #                        IMPORT LIBRARIES
 # =============================================================================
 import numpy as np
+from read_ensemble import read_ensemble
 
 #==============================================================================
 #                   SET EXPERIMENT PARAMETERS
@@ -55,7 +56,7 @@ XTSTD = CLIMATOLOGY['XTSTD']
 #                     READ ENSEMBLE
 #==========================================================================
 #XENS contains the data for all the model grid points, variables and
-#ensemble members. XENS(lon,lat,variable,ensemble member)
+#ensemble members. XENS(lat,lon,variable,ensemble member)
 #XB is a prefix, if XB is selected then the forecast (background) ensemble
 #is read. If XA is selected the the analysis ensemble is read.
 
