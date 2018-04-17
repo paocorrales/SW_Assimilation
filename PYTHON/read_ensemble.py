@@ -18,11 +18,10 @@ def read_ensemble(path_data,prefix,NLons,NLats,NVars,EnsSize,Time):
         ensstr = ensstr[1::]
 
         file = path_data + folder + '/ENS/' + prefix + '_T' + tstr + '_M' + ensstr 
-        nfile = open(file,'rb') 
-
+        
         for ivar in range(NVars):
             nfile = open(file,'rb') 
-            f = np.fromfile(nfile, 'float32')[0:NLons*NLats].reshape([NLats, NLons])
+            f = np.fromfile(nfile, 'float32')[NLons*NLats*ivar:(1 + ivar)*NLons*NLats].reshape([NLats, NLons])
             XENS[:,:,ivar,iens] = np.flip(f, 0)
     return XENS
 

@@ -13,7 +13,7 @@ from compute_analysis_update import compute_analysis_update
 #                   SET EXPERIMENT PARAMETERS
 #==============================================================================
 #Select the observed variable.
-Variable = 1       # U=1 , V=2 , PHY= 3  Variable at local point
+Variable = 0       # U=0 , V=1 , PHY= 2  Variable at local point
 #Indicate the location of the observation (integer)
 GridJ = 30         #Location of grid point for which spatial covariances will be computed.
 GridI = 25 
