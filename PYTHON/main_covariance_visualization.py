@@ -5,6 +5,7 @@
 # =============================================================================
 import numpy as np
 from read_ensemble import read_ensemble
+from compute_localization import compute_localization
 
 #==============================================================================
 #                   SET EXPERIMENT PARAMETERS
