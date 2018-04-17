@@ -5,6 +5,7 @@
 # =============================================================================
 import numpy as np
 from read_ensemble import read_ensemble
+from compute_covariance import compute_covariance
 from compute_localization import compute_localization
 
 #==============================================================================
@@ -71,7 +72,7 @@ XENS = read_ensemble(path_data, 'XB', NLons, NLats, NVars, EnsSize, Time)
 #COVARIANCE contains the covariance between the grid point GridJ, GridI,
 #and Variable with all the other grid points for U, V and PHI.
 
-[XMEAN,XSPREAD,COVARIANCE]=compute_covariance(XENS,GridJ,GridI,Variable) 
+[XMEAN, XSPREAD, COVARIANCE] = compute_covariance(XENS,GridJ,GridI,Variable) 
 
 #COVARIANCE(lat,lon,variable), COVARIANCE(i,j,k) is the covariance of
 #variable k, at location i,j with variable Variable at location GridI,
@@ -83,7 +84,7 @@ XENS = read_ensemble(path_data, 'XB', NLons, NLats, NVars, EnsSize, Time)
 #Localization is the localization function. Localizaed covariance is
 #obtained by performing the Schur product between LOCALIZATION and the
 #covariance.
-[LOCALIZATION]=compute_localization(NLats,NLons,LonI,LatJ,lon,lat,LOCALIZATION_SCALE) 
+LOCALIZATION = compute_localization(NLats,NLons,LonI,LatJ,lon,lat,LOCALIZATION_SCALE) 
 
 #==========================================================================
 #                     COMPUTE SINGLE OBS INCREMENT

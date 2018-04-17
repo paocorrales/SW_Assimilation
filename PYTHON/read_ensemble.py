@@ -1,7 +1,10 @@
 import numpy as np
+# Read an ensemble of forecast for a particular time.
 
 def read_ensemble(path_data,prefix,NLons,NLats,NVars,EnsSize,Time):
-    XENS = np.full((NLats,NLons,NVars,EnsSize), np.nan)   #Analysis ensemble mean
+
+    # Initialize the ensemble array XBENS(lat,lon,variable,ensemble member)
+    XENS = np.full((NLats, NLons, NVars, EnsSize), np.nan)   #Analysis ensemble mean
     tstr = str(10000 + Time) 
     tstr = tstr[1::]
   
@@ -22,7 +25,5 @@ def read_ensemble(path_data,prefix,NLons,NLats,NVars,EnsSize,Time):
             f = np.fromfile(nfile, 'float32')[0:NLons*NLats].reshape([NLats, NLons])
             XENS[:,:,ivar,iens] = np.flip(f, 0)
     return XENS
-#XENS(:,:,ivar,iens)=flipdim(fread(nfile,[NLons NLats],'single')',1)   
 
-            #nfile.close() 
   
