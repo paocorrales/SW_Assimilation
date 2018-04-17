@@ -7,6 +7,7 @@ import numpy as np
 from read_ensemble import read_ensemble
 from compute_covariance import compute_covariance
 from compute_localization import compute_localization
+from compute_analysis_update import compute_analysis_update
 
 #==============================================================================
 #                   SET EXPERIMENT PARAMETERS
@@ -26,7 +27,7 @@ OBSMINUSGUES = 1           #Difference between the first guess and the observati
 OBSERVATION_ERROR = 1      #Observation error (same units as the assimilated observation)
 
 #==============================================================================
-#             OTHER PARAMETERS (For your own experiments)
+#             OTHER PARAMETVariableERS (For your own experiments)
 #==============================================================================
 NATURENAME = 'NATURE_MM15_ICOND4' 
 EXPNAME = 'EXP_HUGEENS_15_METHOD3_ENS999_SKIP2_2_W6.0' 
@@ -73,7 +74,7 @@ XENS = read_ensemble(path_data, 'XB', NLons, NLats, NVars, EnsSize, Time)
 #and Variable with all the other grid points for U, V and PHI.
 
 [XMEAN, XSPREAD, COVARIANCE] = compute_covariance(XENS,GridJ,GridI,Variable) 
-
+[
 #COVARIANCE(lat,lon,variable), COVARIANCE(i,j,k) is the covariance of
 #variable k, at location i,j with variable Variable at location GridI,
 #GridJ.
@@ -94,7 +95,7 @@ LOCALIZATION = compute_localization(NLats,NLons,LonI,LatJ,lon,lat,LOCALIZATION_S
 #that the observational error is OBSERVATION_ERROR.
 #Increment stores the correction for all variables and locations
 #INCREMENT(lon,lat,variable).
-[INCREMENT]=compute_analysis_update(COVARIANCE,LOCALIZATION,GridI,GridJ,Variable,OBSMINUSGUES,OBSERVATION_ERROR) 
+INCREMENT = compute_analysis_update(COVARIANCE,LOCALIZATION,GridI,GridJ,Variable,OBSMINUSGUES,OBSERVATION_ERROR,NLats,NLons,NVars) 
 
 #INCREMENT(i,j,k) is the analysis increment for variable k at the location
 #i,j due to the assimilation of an observation of variable Variable at
