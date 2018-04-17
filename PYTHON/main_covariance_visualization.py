@@ -47,8 +47,8 @@ lat = np.linspace(-90, 90, NLats)
 [lon , lat] = np.meshgrid(lon,lat)
 
 #Get longitude and latitude of the selected location.
-LonI = lon[GridJ,GridI]
-LatJ = lat[GridJ,GridI]
+LonI = lon[GridJ-1,GridI-1]
+LatJ = lat[GridJ-1,GridI-1]
 
 #Load XTMEAN and XTSTD from climatology.
 CLIMATOLOGY = np.load(path_true + 'climatology.npz')
@@ -74,7 +74,7 @@ XENS = read_ensemble(path_data, 'XB', NLons, NLats, NVars, EnsSize, Time)
 #and Variable with all the other grid points for U, V and PHI.
 
 [XMEAN, XSPREAD, COVARIANCE] = compute_covariance(XENS,GridJ,GridI,Variable) 
-[
+
 #COVARIANCE(lat,lon,variable), COVARIANCE(i,j,k) is the covariance of
 #variable k, at location i,j with variable Variable at location GridI,
 #GridJ.
@@ -93,7 +93,7 @@ LOCALIZATION = compute_localization(NLats,NLons,LonI,LatJ,lon,lat,LOCALIZATION_S
 #Increment is the correction introduced by a single observation located at
 #GridI, GridJ and for variable Variable assuming yo-h(x) = OBSMINUSGUES and
 #that the observational error is OBSERVATION_ERROR.
-#Increment stores the correction for all variables and locations
+#Increment stores the correction for all vx, y = map(lon, lat)ariables and locations
 #INCREMENT(lon,lat,variable).
 INCREMENT = compute_analysis_update(COVARIANCE,LOCALIZATION,GridI,GridJ,Variable,OBSMINUSGUES,OBSERVATION_ERROR,NLats,NLons,NVars) 
 
@@ -114,7 +114,7 @@ INCREMENT = compute_analysis_update(COVARIANCE,LOCALIZATION,GridI,GridJ,Variable
 #effect of localization.
 #Plot the analysis INCREMENT produced by a single observation at the
 #location LonI, LatJ and for the selected variable. 
-plot_covariance(XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,Variable) 
+#plot_covariance(XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,Variable) 
 
 
 
