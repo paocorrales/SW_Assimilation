@@ -73,8 +73,9 @@ XENS = read_ensemble(path_data, 'XB', NLons, NLats, NVars, EnsSize, Time)
 #XSPREAD contains the ensemble spread XSPREAD(lon,lat,variable)
 #COVARIANCE contains the covariance between the grid point GridJ, GridI,
 #and Variable with all the other grid points for U, V and PHI.
+#ANOM is the  anomaly in the initial condition for U, V and PHI
 
-[XMEAN, XSPREAD, COVARIANCE] = compute_covariance(XENS,GridJ,GridI,Variable) 
+[XMEAN, XSPREAD, ANOM, COVARIANCE] = compute_covariance(XTMEAN,XENS,GridJ,GridI,Variable) 
 
 #COVARIANCE(lat,lon,variable), COVARIANCE(i,j,k) is the covariance of
 #variable k, at location i,j with variable Variable at location GridI,
@@ -115,7 +116,7 @@ INCREMENT = compute_analysis_update(COVARIANCE,LOCALIZATION,GridI,GridJ,Variable
 #effect of localization.
 #Plot the analysis INCREMENT produced by a single observation at the
 #location LonI, LatJ and for the selected variable. 
-plot_covariance(XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,Variable) 
+plot_covariance(XMEAN,ANOM,XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,Variable) 
 
 
 

@@ -4,7 +4,7 @@ import numpy as np
         
 
 
-def plot_covariance(XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,Variable):
+def plot_covariance(XMEAN,ANOM,XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,Variable):
  
 # Palette
     seq = plt.get_cmap('YlGn')
@@ -17,6 +17,30 @@ def plot_covariance(XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,
     elif Variable == 2:
         VAR='PHI'
 
+
+#==============================================================================
+#                      INITIAL 
+#==============================================================================
+
+    
+    fig, ax = plt.subplots(figsize=(16, 12))
+    map = Basemap(projection='mill',lon_0=180)
+    map.drawcoastlines()
+    map.drawparallels(np.arange(-80,90,20),labels=[1,0,0,0], fontsize=10)
+    map.drawmeridians(np.arange(map.lonmin,map.lonmax+30,40),labels=[0,0,0,1], fontsize=10)
+    x, y = map(lon, lat)
+    Lon, Lat = map(LonI, LatJ)
+    scale = np.amax(np.abs(ANOM[:, :, 2]))/5
+    levels = np.array([-5, -4, -3, -2, -1, 1, 2, 3, 4, 5])*scale
+    cf = ax.contourf(x, y, ANOM[:, :, 2], cmap = div)
+    ax.contour(cf, colors='k', linewidths=0.5)
+    ax.plot(Lon, Lat, marker='.', markersize=25, color="red")
+    ax.quiver(x, y, XMEAN[:, :, 0], XMEAN[:, :, 1], width = 0.001) 
+    ax.set_ylabel('Lat', labelpad = 30)
+    ax.set(title='PHI (anomaly, shaded), U;V (mean, vectors)')
+    map.colorbar(cf, location='right')
+    plt.savefig('../FIG/' + 'Initial.png')
+    plt.show()
 
 #==============================================================================
 #                         U VARIANCE
@@ -306,5 +330,6 @@ def plot_covariance(XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,
     map.colorbar(cf, location='right')
     plt.savefig('../FIG/' + 'Localization_function.png')
     plt.show()
+
 
 

@@ -1,10 +1,11 @@
 import numpy as np 
 
-def compute_covariance(XENS,GridJ,GridI,Variable):
+def compute_covariance(XTMEAN,XENS,GridJ,GridI,Variable):
 
 # Compute the ensemble spread (standard deviation) and mean.
     XSPREAD = np.std(XENS, 3)
     XMEAN = np.mean(XENS, 3)
+    ANOM = XMEAN[:, :, :] - XTMEAN[:, :, 0:3]
 
     [NLats , NLons , NVars , EnsSize] = XENS.shape
 
@@ -19,7 +20,7 @@ def compute_covariance(XENS,GridJ,GridI,Variable):
                 tmp = np.cov(XENS[jj,ii,k,:], XENS[GridJ-1,GridI-1,Variable,:])
                 COVARIANCE[jj,ii,k] = tmp[1, 0]
     
-    return XMEAN, XSPREAD, COVARIANCE
+    return XMEAN, XSPREAD, ANOM, COVARIANCE
 
 # COVARIANCE(lat,lon,variable), COVARIANCE(i,j,k) is the covariance of
 # variable k, at location i,j with variable Variable at location GridI, GridJ.
