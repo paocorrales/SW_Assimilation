@@ -8,6 +8,7 @@ from read_ensemble import read_ensemble
 from compute_covariance import compute_covariance
 from compute_localization import compute_localization
 from compute_analysis_update import compute_analysis_update
+from plot_covariance import plot_covariance
 
 #==============================================================================
 #                   SET EXPERIMENT PARAMETERS
@@ -114,7 +115,7 @@ INCREMENT = compute_analysis_update(COVARIANCE,LOCALIZATION,GridI,GridJ,Variable
 #effect of localization.
 #Plot the analysis INCREMENT produced by a single observation at the
 #location LonI, LatJ and for the selected variable. 
-#plot_covariance(XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,Variable) 
+plot_covariance(XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,Variable) 
 
 
 
