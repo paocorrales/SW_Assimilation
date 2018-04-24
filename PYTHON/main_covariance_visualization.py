@@ -14,7 +14,7 @@ from plot_covariance import plot_covariance
 #                   SET EXPERIMENT PARAMETERS
 #==============================================================================
 #Folder to save figures to
-figfolder = '../FIGS/Loc4000'
+figfolder = '../FIG/Loc4000'
 #Select the observed variable.
 Variable = 0       # U=0 , V=1 , PHI= 2  Variable at local point
 #Indicate the location of the observation (integer)
@@ -23,17 +23,11 @@ GridI = 25
 Time = 504         #Available times are 102, 504 and 900.
 EnsSize = 99       #From 2 to 999
 #Select the localization scale
-<<<<<<< HEAD
+
 LOCALIZATION_SCALE = 2000e3  #Localization scale in meters.
-OBSMINUSGUES = 1           #Difference between the first guess and the observation at 
-                           #the observation location (same units as the
-                           #assimilated observation)
-OBSERVATION_ERROR = 1      #Observation error (same units as the assimilated observation)
-=======
-LOCALIZATION_SCALE = 4000e3  #Localization scale in meters.
 OBSMINUSGUES = 1           #Difference between the first guess and the \                          observation at the observation location (same \                          units as the assimilated observation)
 OBSERVATION_ERROR = 1      #Observation error (same units as the assimilated \                          observation)
->>>>>>> b151635917edef7ce4b97719311a84fcbe5028c9
+
 
 #==============================================================================
 #             OTHER PARAMETERS (For your own experiments)
@@ -83,13 +77,9 @@ XENS = read_ensemble(path_data, 'XB', NLons, NLats, NVars, EnsSize, Time)
 #COVARIANCE contains the covariance between the grid point GridJ, GridI,
 #and Variable with all the other grid points for U, V and PHI.
 #ANOM is the  anomaly in the initial condition for U, V and PHI
-<<<<<<< HEAD
 
-[XMEAN, XSPREAD, ANOM, COVARIANCE] = compute_covariance(XTMEAN,XENS,GridJ,GridI,Variable) 
-=======
 print('Computing covariance')
 [XMEAN, XSPREAD, ANOM, COVARIANCE] = compute_covariance(XTMEAN, XENS, GridJ, GridI, Variable)
->>>>>>> b151635917edef7ce4b97719311a84fcbe5028c9
 
 #COVARIANCE(lat,lon,variable), COVARIANCE(i,j,k) is the covariance of
 #variable k, at location i,j with variable Variable at location GridI,
@@ -131,15 +121,6 @@ INCREMENT = compute_analysis_update(COVARIANCE, LOCALIZATION, GridI, GridJ, Vari
 #can be compared with the non-localized covariances to understand the
 #effect of localization.
 #Plot the analysis INCREMENT produced by a single observation at the
-<<<<<<< HEAD
-#location LonI, LatJ and for the selected variable. 
-plot_covariance(XMEAN,ANOM,XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,Variable) 
-
-
-
-
-=======
 #location LonI, LatJ and for the selected variable.
 print('Making plots')
 plot_covariance(figfolder, XMEAN, ANOM, XSPREAD, COVARIANCE, LOCALIZATION, INCREMENT, lon, lat, LonI, LatJ, Variable)
->>>>>>> b151635917edef7ce4b97719311a84fcbe5028c9
