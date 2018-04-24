@@ -8,26 +8,27 @@ from read_ensemble import read_ensemble
 from compute_covariance import compute_covariance
 from compute_localization import compute_localization
 from compute_analysis_update import compute_analysis_update
+from plot_covariance import plot_covariance
 
 #==============================================================================
 #                   SET EXPERIMENT PARAMETERS
 #==============================================================================
 #Select the observed variable.
-Variable = 0       # U=0 , V=1 , PHY= 2  Variable at local point
+Variable = 0       # U=0 , V=1 , PHI= 2  Variable at local point
 #Indicate the location of the observation (integer)
 GridJ = 30         #Location of grid point for which spatial covariances will be computed.
 GridI = 25 
 Time = 504         #Available times are 102, 504 and 900. 
 EnsSize = 99       #From 2 to 999
 #Select the localization scale
-LOCALIZATION_SCALE = 1400e3  #Localization scale in meters.
+LOCALIZATION_SCALE = 2000e3  #Localization scale in meters.
 OBSMINUSGUES = 1           #Difference between the first guess and the observation at 
                            #the observation location (same units as the
                            #assimilated observation)
 OBSERVATION_ERROR = 1      #Observation error (same units as the assimilated observation)
 
 #==============================================================================
-#             OTHER PARAMETVariableERS (For your own experiments)
+#             OTHER PARAMETERS (For your own experiments)
 #==============================================================================
 NATURENAME = 'NATURE_MM15_ICOND4' 
 EXPNAME = 'EXP_HUGEENS_15_METHOD3_ENS999_SKIP2_2_W6.0' 
@@ -72,8 +73,9 @@ XENS = read_ensemble(path_data, 'XB', NLons, NLats, NVars, EnsSize, Time)
 #XSPREAD contains the ensemble spread XSPREAD(lon,lat,variable)
 #COVARIANCE contains the covariance between the grid point GridJ, GridI,
 #and Variable with all the other grid points for U, V and PHI.
+#ANOM is the  anomaly in the initial condition for U, V and PHI
 
-[XMEAN, XSPREAD, COVARIANCE] = compute_covariance(XENS,GridJ,GridI,Variable) 
+[XMEAN, XSPREAD, ANOM, COVARIANCE] = compute_covariance(XTMEAN,XENS,GridJ,GridI,Variable) 
 
 #COVARIANCE(lat,lon,variable), COVARIANCE(i,j,k) is the covariance of
 #variable k, at location i,j with variable Variable at location GridI,
@@ -114,7 +116,7 @@ INCREMENT = compute_analysis_update(COVARIANCE,LOCALIZATION,GridI,GridJ,Variable
 #effect of localization.
 #Plot the analysis INCREMENT produced by a single observation at the
 #location LonI, LatJ and for the selected variable. 
-#plot_covariance(XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,Variable) 
+plot_covariance(XMEAN,ANOM,XSPREAD,COVARIANCE,LOCALIZATION,INCREMENT,lon,lat,LonI,LatJ,Variable) 
 
 
 
